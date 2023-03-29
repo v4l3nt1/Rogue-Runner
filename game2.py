@@ -13,7 +13,7 @@ SCREEN_HEIGHT = 600
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Set the tile size
-TILE_SIZE = 20
+TILE_SIZE = 25
 
 # Set the number of tiles in each direction
 MAP_WIDTH = SCREEN_WIDTH // TILE_SIZE
