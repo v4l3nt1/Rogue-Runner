@@ -1,2 +1,3 @@
 #main file, import other files like that
-import objects
+from objects import *
+from entities import *
