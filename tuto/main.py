@@ -1,9 +1,11 @@
 import pyxel as px
+from random import *
 
 class Jeu:
     def __init__(self, h, l, titre):
         px.init(h, l, title=titre)
         self.joueur = Joueur(64, 64)
+        self.ennemi = Ennemi()
         self.liste_tirs = [] 	
 
         px.run(self.update, self.draw)
@@ -16,12 +18,14 @@ class Jeu:
             tir.move()
             if not tir.estEnVol():
                 self.liste_tirs.remove(tir)
+
+        self.ennemi.move()
         
 
     def draw(self):
         px.cls(0)
         self.joueur.draw()
-
+        self.ennemi.draw()
         for tir in self.liste_tirs:
             tir.draw()
 
@@ -71,6 +75,17 @@ class Tir:
     
     def draw(self):
         px.rect(self.x, self.y, 1, 4, 10)
+
+class Ennemi:
+    def __init__(self):
+        self.x = randint(8, 120)
+        self.y = randint(8, 120)
+
+    def move(self):
+        
+        
+    def draw(self):
+        px.rect(self.x, self.y, 4, 4, 10)
 
 
 
