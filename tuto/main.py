@@ -1,5 +1,4 @@
 import pyxel as px
-from time import *
 from random import *
 from joueur import *
 from tir import *
@@ -24,7 +23,6 @@ class Jeu:
                 self.liste_tirs.remove(tir)
 
         self.ennemi.move()
-        
 
     def draw(self):
         px.cls(0)
@@ -32,9 +30,5 @@ class Jeu:
         self.ennemi.draw()
         for tir in self.liste_tirs:
             tir.draw()
-
-
-
-
 
 Jeu(128, 128, "v1")
