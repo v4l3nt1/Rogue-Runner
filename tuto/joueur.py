@@ -5,7 +5,7 @@ class Joueur:
         self.x = x
         self.y = y
         self.h = 8
-        self.w = 12
+        self.w = 8
         self.vitesse = 1
 
     def move(self):
@@ -27,4 +27,4 @@ class Joueur:
         
 
     def draw(self):
-        px.rect(self.x, self.y, self.h, self.w, 9)
+        px.blt(self.x, self.y, 0, 32, 0, 8, 16, 0)
