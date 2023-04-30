@@ -79,7 +79,7 @@ class App:
 
     def deplacement_perso(self):
         if pyxel.btn(pyxel.KEY_RIGHT) and pyxel.tilemap(0).pget((self.x + 8) % pyxel.width//8+self.co_salle[self.i][0],self.y//8+self.co_salle[self.i][1]) in [(1,5),(4,4)] and pyxel.tilemap(0).pget((self.x + 8) % pyxel.width//8+self.co_salle[self.i][0],(self.y + 7) % pyxel.width//8+self.co_salle[self.i][1]) in [(1,5),(4,4)]:
-            self.x = (self.x + 1*self.boost_vitesse) % pyxel.width
+            self.x = (self.x + 1*self.boost_vitesse) % pyxel.width  
             self.direction_visee = "D"
             
         if pyxel.btn(pyxel.KEY_LEFT) and pyxel.tilemap(0).pget((self.x - 1) % pyxel.width//8+self.co_salle[self.i][0],self.y//8+self.co_salle[self.i][1])in [(1,5),(4,4)] and pyxel.tilemap(0).pget((self.x - 1) % pyxel.width//8+self.co_salle[self.i][0],(self.y + 7) % pyxel.width//8+self.co_salle[self.i][1]) in [(1,5),(4,4)]:
