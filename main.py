@@ -1,5 +1,6 @@
 import pyxel as px
 
+WALLS = (1,0)
 FROM_RIGHT = [(32,0),(48,0),(96,0),(128,0),(160,0),(192,0),(208,0),(224,0)]
 FROM_LEFT = [(32,0),(64,0),(80,0),(128,0),(144,0),(176,0),(192,0),(224,0)]
 FROM_UP = [(0,0),(16,0),(80,0),(96,0),(128,0),(176,0),(208,0),(224,0)]
@@ -15,20 +16,19 @@ class Hero:
 
     def move(self):
         if px.btn(px.KEY_Z):
-            if self.y > 8:
-                self.y -= self.vitesse
+            if px.tilemap(0).pget(self.x//8, (self.y-1)//8 ) != WALLS:
+                self.y -= self.vitesse 
         if px.btn(px.KEY_Q):
-            if self.x > 8:
+            if px.tilemap(0).pget((self.x-1)//8, self.y//8) != WALLS:
                 self.x -= self.vitesse
         if px.btn(px.KEY_S):
-            if self.y < 120:
+            if px.tilemap(0).pget(self.x//8, (self.y+8)//8) != WALLS:
                 self.y += self.vitesse
         if px.btn(px.KEY_D):
-            if self.x < 120:
+            if px.tilemap(0).pget((self.x+8)//8, self.y//8) != WALLS:
                 self.x += self.vitesse
-        if px.btnr(px.KEY_SPACE):
-            return self.x+4, self.y-2
-        return None
+        
+
     
     def draw(self):
         px.blt(self.x, self.y, 0, 0, 16, 8, 8, 0)
