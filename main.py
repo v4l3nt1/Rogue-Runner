@@ -16,17 +16,18 @@ class Hero:
 
     def move(self):
         if px.btn(px.KEY_Z):
-            if px.tilemap(0).pget(self.x//8, (self.y-1)//8 ) != WALLS:
+            if px.tilemap(0).pget(self.x//8, (self.y-1)//8) != WALLS and px.tilemap(0).pget((self.x+7)//8, (self.y-1)//8) != WALLS:
                 self.y -= self.vitesse 
         if px.btn(px.KEY_Q):
-            if px.tilemap(0).pget((self.x-1)//8, self.y//8) != WALLS:
+            if px.tilemap(0).pget((self.x-1)//8, self.y//8) != WALLS and px.tilemap(0).pget((self.x-1)//8, (self.y+7)//8) != WALLS:
                 self.x -= self.vitesse
         if px.btn(px.KEY_S):
-            if px.tilemap(0).pget(self.x//8, (self.y+8)//8) != WALLS:
+            if px.tilemap(0).pget(self.x//8, (self.y+8)//8) != WALLS and px.tilemap(0).pget((self.x+7)//8, (self.y+8)//8) != WALLS:
                 self.y += self.vitesse
         if px.btn(px.KEY_D):
-            if px.tilemap(0).pget((self.x+8)//8, self.y//8) != WALLS:
+            if px.tilemap(0).pget((self.x+8)//8, self.y//8) != WALLS and px.tilemap(0).pget((self.x+8)//8, (self.y+7)//8) != WALLS:
                 self.x += self.vitesse
+        print(self.x, self.y, self.x//8, self.y//8)
         
 
     
