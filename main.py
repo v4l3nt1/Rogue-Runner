@@ -1,4 +1,5 @@
 import pyxel as px
+from random import * 
 
 WALLS = (1,0)
 FROM_RIGHT = [(32,0),(48,0),(96,0),(128,0),(160,0),(192,0),(208,0),(224,0)]
@@ -28,9 +29,13 @@ class Hero:
             if px.tilemap(0).pget((self.x+8)//8, self.y//8) != WALLS and px.tilemap(0).pget((self.x+8)//8, (self.y+7)//8) != WALLS:
                 self.x += self.vitesse
         print(self.x, self.y, self.x//8, self.y//8)
-        
-
     
+    def changementSalle(self):
+        if self.y >= 0:
+            self.y -= 100
+            #px.bltm(0, 0, 0, random(FROM_LEFT[0]), random(FROM_LEFT[1]), 128, 128, 0)
+
+
     def draw(self):
         px.blt(self.x, self.y, 0, 0, 16, 8, 8, 0)
 
