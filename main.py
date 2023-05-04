@@ -29,12 +29,22 @@ class Hero:
             if px.tilemap(0).pget((self.x+8)//8, self.y//8) != WALLS and px.tilemap(0).pget((self.x+8)//8, (self.y+7)//8) != WALLS:
                 self.x += self.vitesse
         print(self.x, self.y, self.x//8, self.y//8)
+       
     
     def changementSalle(self):
-        if self.y >= 0:
-            self.y -= 100
-            #px.bltm(0, 0, 0, random(FROM_LEFT[0]), random(FROM_LEFT[1]), 128, 128, 0)
-
+        if self.x==127:
+            mapx, mapy = choice(FROM_LEFT)
+            self.x=8                
+        if self.x==0:
+            mapx, mapy = choice(FROM_RIGHT)
+            self.x=112              
+        if self.y==0:
+            mapx, mapy = choice(FROM_DOWN)
+            self.y=112                
+        if self.y==127:
+            mapx, mapy = choice(FROM_UP)
+            self.y=8
+        return (mapx, mapy)
 
     def draw(self):
         px.blt(self.x, self.y, 0, 0, 16, 8, 8, 0)
@@ -43,6 +53,7 @@ class Jeu:
     def __init__(self, h, l, titre):
         px.init(h, l, title=titre)
         px.load("res.pyxres", True, True, False, False)
+        self.salle = (0, 0)
         self.joueur = Hero(55, 55)
         self.menu = True
         px.run(self.update, self.draw)
@@ -53,12 +64,15 @@ class Jeu:
 
     def draw(self):
         px.cls(0)
-        px.bltm(0, 0, 0, 0, 0, 128, 128, 0)
+        px.bltm(0, 0, 0, self.salle[0], self.salle[1], 128, 128, 0)
         if self.menu == True:
             px.text(1, 50, "Appuyez sur ESPACE pour jouer", 6)
             if px.btn(px.KEY_SPACE):
                 self.menu = False
         else:
             self.joueur.draw()
+        if self.joueur.x==0 or self.joueur.x==127 or self.joueur.y==0 or self.joueur.y==127:
+            self.salle = self.joueur.changementSalle()
+            
 
 Jeu(128, 128, "Rogue Runner")
