@@ -49,8 +49,7 @@ class Jeu:
             self.salle = self.changementSalle()
             
     def draw(self):
-        px.cls(0)
-        px.bltm(0, 0, 0, self.salle[0]*8, self.salle[1]*8, 128, 128, 0)
+        px.bltm(0, 0, 0, self.salle[0]*8, self.salle[1]*8, 128, 128)
         if self.menu == True:
             px.text(1, 50, "Appuyez sur ESPACE pour jouer", 6)
             if px.btn(px.KEY_SPACE):
