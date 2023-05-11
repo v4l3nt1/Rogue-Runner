@@ -207,7 +207,6 @@ class App:
                 self.co_salle=self.salle_right
                 self.x=8
                 self.i=randint(0,len(self.co_salle)-1)
-                
             if self.x==0:
                 self.co_salle=self.salle_left
                 self.x=112
