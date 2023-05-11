@@ -14,19 +14,21 @@ class Joueur:
         self.hp = 100
         self.atk = 2
         self.vitesse = 1
+        self.mapy = 0
+        self.mapx = 0
 
     def move(self):
         if px.btn(px.KEY_Z):
-            if px.tilemap(0).pget(self.x//8, (self.y-1)//8) != WALLS and px.tilemap(0).pget((self.x+7)//8, (self.y-1)//8) != WALLS:
+            if px.tilemap(0).pget((self.mapx*8+self.x)//8, ((self.mapy*8+self.y)-1)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+7)//8, ((self.mapy*8+self.y)-1)//8) != WALLS:
                 self.y -= self.vitesse 
         if px.btn(px.KEY_Q):
-            if px.tilemap(0).pget((self.x-1)//8, self.y//8) != WALLS and px.tilemap(0).pget((self.x-1)//8, (self.y+7)//8) != WALLS:
+            if px.tilemap(0).pget(((self.mapx*8+self.x)-1)//8, (self.mapy*8+self.y)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)-1)//8, ((self.mapy*8+self.y)+7)//8) != WALLS:
                 self.x -= self.vitesse
         if px.btn(px.KEY_S):
-            if px.tilemap(0).pget(self.x//8, (self.y+8)//8) != WALLS and px.tilemap(0).pget((self.x+7)//8, (self.y+8)//8) != WALLS:
+            if px.tilemap(0).pget((self.mapx*8+self.x)//8, ((self.mapy*8+self.y)+8)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+7)//8, ((self.mapy*8+self.y)+8)//8) != WALLS:
                 self.y += self.vitesse
         if px.btn(px.KEY_D):
-            if px.tilemap(0).pget((self.x+8)//8, self.y//8) != WALLS and px.tilemap(0).pget((self.x+8)//8, (self.y+7)//8) != WALLS:
+            if px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, (self.mapy*8+self.y)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, ((self.mapy*8+self.y)+7)//8) != WALLS:
                 self.x += self.vitesse
         print(self.x, self.y, self.x//8, self.y//8)
     
@@ -59,18 +61,18 @@ class Jeu:
     
     def changementSalle(self):
             if self.joueur.x==127:
-                mapx, mapy = choice(FROM_LEFT)
+                self.joueur.mapx, self.joueur.mapy = choice(FROM_LEFT)
                 self.joueur.x=8                
             if self.joueur.x==0:
-                mapx, mapy = choice(FROM_RIGHT)
+                self.joueur.mapx, self.joueur.mapy = choice(FROM_RIGHT)
                 self.joueur.x=112              
             if self.joueur.y==0:
-                mapx, mapy = choice(FROM_DOWN)
+                self.joueur.mapx, self.joueur.mapy = choice(FROM_DOWN)
                 self.joueur.y=112                
             if self.joueur.y==127:
-                mapx, mapy = choice(FROM_UP)
+                self.joueur.mapx, self.joueur.mapy = choice(FROM_UP)
                 self.joueur.y=8
-            return (mapx, mapy)
+            return (self.joueur.mapx, self.joueur.mapy)
             
 
 Jeu(128, 128, "Rogue Runner")
