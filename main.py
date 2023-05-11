@@ -47,7 +47,7 @@ class Jeu:
     def update(self):
         if not self.menu:
             self.joueur.move()
-        if self.joueur.x==0 or self.joueur.x==127 or self.joueur.y==0 or self.joueur.y==127:
+        if self.joueur.x==0 or self.joueur.x==120 or self.joueur.y==0 or self.joueur.y==120:
             self.salle = self.changementSalle()
             
     def draw(self):
@@ -60,18 +60,18 @@ class Jeu:
             self.joueur.draw()
     
     def changementSalle(self):
-            if self.joueur.x==127:
+            if self.joueur.x==120:
                 self.joueur.mapx, self.joueur.mapy = choice(FROM_LEFT)
-                self.joueur.x=8                
+                self.joueur.x=1                
             if self.joueur.x==0:
                 self.joueur.mapx, self.joueur.mapy = choice(FROM_RIGHT)
-                self.joueur.x=112              
+                self.joueur.x=119             
             if self.joueur.y==0:
                 self.joueur.mapx, self.joueur.mapy = choice(FROM_DOWN)
                 self.joueur.y=112                
-            if self.joueur.y==127:
+            if self.joueur.y==120:
                 self.joueur.mapx, self.joueur.mapy = choice(FROM_UP)
-                self.joueur.y=8
+                self.joueur.y=1
             return (self.joueur.mapx, self.joueur.mapy)
             
 
