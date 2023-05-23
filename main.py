@@ -1,11 +1,13 @@
 import pyxel as px
-from random import * 
+from random import *
 
 WALLS = (1,0)
 FROM_RIGHT = [(32,0),(48,0),(96,0),(128,0),(160,0),(192,0),(208,0),(224,0)]
 FROM_LEFT = [(32,0),(64,0),(80,0),(128,0),(144,0),(176,0),(192,0),(224,0)]
 FROM_UP = [(0,0),(16,0),(80,0),(96,0),(128,0),(176,0),(208,0),(224,0)]
 FROM_DOWN = [(16,0),(32,0),(48,0),(64,0),(80,0),(96,0),(112,0),(128,0)]
+
+GRAVITY = 0.5  # Gravité appliquée au joueur
 
 class Joueur:
     def __init__(self, x, y):
@@ -16,7 +18,9 @@ class Joueur:
         self.vitesse = 1
         self.mapy = 0
         self.mapx = 0
-
+        self.is_jumping = False
+        self.jump_power = 5
+    
     def move(self):
         if px.btn(px.KEY_Z):
             if px.tilemap(0).pget((self.mapx*8+self.x)//8, ((self.mapy*8+self.y)-1)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+7)//8, ((self.mapy*8+self.y)-1)//8) != WALLS:
@@ -30,6 +34,12 @@ class Joueur:
         if px.btn(px.KEY_D):
             if px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, (self.mapy*8+self.y)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, ((self.mapy*8+self.y)+7)//8) != WALLS:
                 self.x += self.vitesse
+
+        # Appliquer la gravité
+        if not self.is_jumping:
+            if px.tilemap(0).pget((self.mapx*8+self.x)//8, ((self.mapy*8+self.y)+8)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+7)//8, ((self.mapy*8+self.y)+8)//8) != WALLS:
+                self.y += GRAVITY
+
         print(self.x, self.y, self.x//8, self.y//8)
     
     def draw(self):
