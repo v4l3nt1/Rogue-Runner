@@ -8,6 +8,7 @@ FROM_UP = [(0,0),(16,0),(80,0),(96,0),(128,0),(176,0),(208,0),(224,0)]
 FROM_DOWN = [(16,0),(32,0),(48,0),(64,0),(80,0),(96,0),(112,0),(128,0)]
 
 GRAVITY = 0.5  # Gravité appliquée au joueur
+JUMP_POWER = 8  # Puissance du saut du joueur
 
 class Joueur:
     def __init__(self, x, y):
@@ -19,7 +20,7 @@ class Joueur:
         self.mapy = 0
         self.mapx = 0
         self.is_jumping = False
-        self.jump_power = 5
+        self.jump_power = 0
     
     def move(self):
         if px.btn(px.KEY_Z):
@@ -34,6 +35,18 @@ class Joueur:
         if px.btn(px.KEY_D):
             if px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, (self.mapy*8+self.y)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, ((self.mapy*8+self.y)+7)//8) != WALLS:
                 self.x += self.vitesse
+
+        # Gestion du saut
+        if px.btnp(px.KEY_SPACE) and not self.is_jumping:
+            self.is_jumping = True
+            self.jump_power = JUMP_POWER
+
+        if self.is_jumping:
+            if self.jump_power >= 0:
+                self.y -= self.jump_power
+                self.jump_power -= 1
+            else:
+                self.is_jumping = False
 
         # Appliquer la gravité
         if not self.is_jumping:
