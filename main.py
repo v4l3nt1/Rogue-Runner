@@ -36,24 +36,7 @@ class Joueur:
             if px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, (self.mapy*8+self.y)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+8)//8, ((self.mapy*8+self.y)+7)//8) != WALLS:
                 self.x += self.vitesse
 
-        # Gestion du saut
-        if px.btnp(px.KEY_SPACE) and not self.is_jumping:
-            self.is_jumping = True
-            self.jump_power = JUMP_POWER
 
-        if self.is_jumping:
-            if self.jump_power >= 0:
-                self.y -= self.jump_power
-                self.jump_power -= 1
-            else:
-                self.is_jumping = False
-
-        # Appliquer la gravité
-        if not self.is_jumping:
-            if px.tilemap(0).pget((self.mapx*8+self.x)//8, ((self.mapy*8+self.y)+8)//8) != WALLS and px.tilemap(0).pget(((self.mapx*8+self.x)+7)//8, ((self.mapy*8+self.y)+8)//8) != WALLS:
-                self.y += GRAVITY
-
-        print(self.x, self.y, self.x//8, self.y//8)
     
     def draw(self):
         px.blt(self.x, self.y, 0, 0, 16, 8, 8, 0)
